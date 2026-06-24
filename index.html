@@ -1,0 +1,1877 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>나의 하루 감사정원 🌿 | Web Gratitude Garden</title>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@300;400;500;700;900&family=Sunflower:wght@300;500;700&display=swap" rel="stylesheet">
+    <!-- Google Material Icons -->
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" rel="stylesheet" />
+    
+    <style>
+        :root {
+            /* Palette: Healing Sage Theme */
+            --bg-color: #FAF8F5;
+            --card-bg: #FFFFFF;
+            --text-main: #2E2B25;
+            --text-muted: #726B5F;
+            
+            --primary: #7E957D; /* Sage Green */
+            --primary-light: #EFF4EF;
+            --primary-dark: #586B57;
+            --secondary: #EAD5C3; /* Soft Peach */
+            --accent: #CE9B8C; /* Rosewood */
+            --gold: #FFB300;
+            --overlay-bg: rgba(46, 43, 37, 0.4);
+            
+            /* Quadrant colors */
+            --quad-red: #FFF0F0;
+            --quad-yellow: #FFFFE0;
+            --quad-blue: #F0F6FC;
+            --quad-green: #F3F9F3;
+            
+            --border-red: #FFCDD2;
+            --border-yellow: #FFF59D;
+            --border-blue: #CADEF0;
+            --border-green: #CBE3CB;
+            
+            --text-red: #C62828;
+            --text-yellow: #A07000;
+            --text-blue: #1565C0;
+            --text-green: #2E7D32;
+        }
+
+        /* Basic Styles */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            font-family: 'Noto Serif KR', serif;
+            color: var(--text-main);
+            line-height: 1.6;
+            padding: 24px 16px;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        .container {
+            max-width: 840px;
+            margin: 0 auto;
+            padding-bottom: 80px;
+        }
+
+        /* Material Ripple effect simulation */
+        .btn-ripple {
+            position: relative;
+            overflow: hidden;
+            transition: background 0.2s, transform 0.2s, box-shadow 0.2s;
+        }
+        .btn-ripple:active {
+            transform: scale(0.97);
+        }
+
+        /* Header Style */
+        header {
+            text-align: center;
+            padding: 56px 24px 36px 24px;
+            background: linear-gradient(135deg, #EFF4EF 0%, #EAD5C3 100%);
+            border-radius: 32px;
+            margin-bottom: 28px;
+            box-shadow: 0 4px 20px rgba(126, 149, 125, 0.08);
+            position: relative;
+            overflow: hidden;
+        }
+
+        header::after {
+            content: "🌿";
+            font-size: 130px;
+            position: absolute;
+            right: -10px;
+            bottom: -30px;
+            opacity: 0.08;
+            user-select: none;
+            pointer-events: none;
+        }
+
+        header h1 {
+            font-family: 'Sunflower', sans-serif;
+            font-weight: 700;
+            color: var(--text-main);
+            margin-bottom: 12px;
+            letter-spacing: -0.5px;
+            font-size: 2.6rem;
+        }
+
+        header p {
+            color: var(--text-muted);
+            font-size: 1.05rem;
+            margin-bottom: 20px;
+            max-width: 580px;
+            margin-left: auto;
+            margin-right: auto;
+            font-weight: 400;
+        }
+
+        .action-header-row {
+            display: flex;
+            justify-content: center;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+
+        /* Dynamic Statistics Dashboard */
+        .stats-card {
+            background-color: var(--card-bg);
+            border-radius: 24px;
+            padding: 24px 30px;
+            margin-bottom: 28px;
+            box-shadow: 0 4px 24px rgba(46, 43, 37, 0.03);
+            display: grid;
+            grid-template-columns: 1fr 1fr 1.5fr;
+            gap: 20px;
+            border: 1px solid rgba(46, 43, 37, 0.04);
+            align-items: center;
+        }
+
+        .stat-item {
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .stat-item:not(:last-child) {
+            border-right: 1px solid rgba(46, 43, 37, 0.08);
+        }
+
+        .stat-lbl {
+            font-size: 0.82rem;
+            color: var(--text-muted);
+            margin-bottom: 6px;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 4px;
+        }
+
+        .stat-val {
+            font-size: 1.6rem;
+            font-weight: 800;
+            color: var(--primary-dark);
+        }
+
+        .stat-category-tag {
+            background-color: var(--primary-light);
+            color: var(--primary-dark);
+            padding: 4px 10px;
+            border-radius: 12px;
+            font-size: 0.78rem;
+            font-weight: bold;
+            border: 1px solid rgba(126, 149, 125, 0.15);
+            display: inline-block;
+            margin: 2px;
+        }
+
+        /* Filter Panel */
+        .filter-panel {
+            background-color: var(--card-bg);
+            border-radius: 24px;
+            padding: 28px;
+            margin-bottom: 28px;
+            box-shadow: 0 4px 24px rgba(46, 43, 37, 0.02);
+            border: 1px solid rgba(46, 43, 37, 0.03);
+        }
+
+        .filter-title {
+            font-size: 0.98rem;
+            font-weight: 700;
+            margin-bottom: 14px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            color: var(--text-main);
+        }
+
+        .filter-title span {
+            font-size: 1.25rem;
+            color: var(--primary);
+        }
+
+        /* Search input with prefix icon */
+        .search-wrapper {
+            position: relative;
+            margin-bottom: 20px;
+        }
+
+        .search-wrapper .material-symbols-outlined {
+            position: absolute;
+            left: 16px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--text-muted);
+            font-size: 1.3rem;
+        }
+
+        .search-box {
+            width: 100%;
+            padding: 15px 18px 15px 46px;
+            border-radius: 16px;
+            border: 1px solid rgba(46, 43, 37, 0.12);
+            background-color: #FDFCFA;
+            font-family: inherit;
+            font-size: 0.95rem;
+            outline: none;
+            transition: all 0.25s ease;
+        }
+
+        .search-box:focus {
+            border-color: var(--primary);
+            background-color: #ffffff;
+            box-shadow: 0 0 0 4px rgba(126, 149, 125, 0.12);
+        }
+
+        /* 2x2 Interactive Mood Map Grid */
+        .mood-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        .mood-btn {
+            padding: 14px 12px;
+            border-radius: 16px;
+            border: 1px solid rgba(46, 43, 37, 0.06);
+            font-size: 0.85rem;
+            cursor: pointer;
+            text-align: center;
+            font-weight: 700;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 4px;
+            user-select: none;
+        }
+
+        .mood-btn.red { background-color: var(--quad-red); color: var(--text-red); border-color: var(--border-red); }
+        .mood-btn.yellow { background-color: var(--quad-yellow); color: var(--text-yellow); border-color: var(--border-yellow); }
+        .mood-btn.blue { background-color: var(--quad-blue); color: var(--text-blue); border-color: var(--border-blue); }
+        .mood-btn.green { background-color: var(--quad-green); color: var(--text-green); border-color: var(--border-green); }
+
+        .mood-btn.active {
+            box-shadow: 0 0 0 3px var(--text-main);
+            transform: scale(1.02);
+        }
+
+        .row-chips {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+
+        .chip {
+            padding: 8px 16px;
+            font-size: 0.85rem;
+            border-radius: 20px;
+            background-color: #F1EFE9;
+            color: var(--text-muted);
+            border: 1px solid transparent;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            font-weight: 500;
+            user-select: none;
+        }
+
+        .chip:hover {
+            background-color: #E6E3DB;
+            color: var(--text-main);
+        }
+
+        .chip.active {
+            background-color: var(--primary);
+            color: white;
+            font-weight: 700;
+            box-shadow: 0 2px 8px rgba(126, 149, 125, 0.2);
+        }
+
+        /* Main Buttons */
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            padding: 12px 24px;
+            border-radius: 16px;
+            font-size: 0.95rem;
+            font-weight: 700;
+            border: none;
+            cursor: pointer;
+            font-family: inherit;
+        }
+
+        .btn-primary {
+            background-color: var(--primary);
+            color: white;
+            box-shadow: 0 4px 12px rgba(126, 149, 125, 0.25);
+        }
+
+        .btn-primary:hover {
+            background-color: var(--primary-dark);
+            box-shadow: 0 6px 16px rgba(126, 149, 125, 0.35);
+        }
+
+        .btn-secondary {
+            background-color: var(--primary-light);
+            color: var(--primary-dark);
+            border: 1px solid rgba(126, 149, 125, 0.2);
+        }
+
+        .btn-secondary:hover {
+            background-color: #DFE8DE;
+        }
+
+        /* List layout */
+        .entries-list {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .entry-card {
+            background-color: var(--card-bg);
+            border-radius: 24px;
+            padding: 28px;
+            box-shadow: 0 4px 24px rgba(46, 43, 37, 0.02);
+            border: 1px solid rgba(46, 43, 37, 0.03);
+            transition: transform 0.25s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.25s;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .entry-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 30px rgba(46, 43, 37, 0.06);
+        }
+
+        /* Quadrant Indicator Borders */
+        .entry-card.mood-red { border-left: 6px solid var(--text-red); background-color: var(--quad-red); }
+        .entry-card.mood-yellow { border-left: 6px solid #FFD54F; background-color: var(--quad-yellow); }
+        .entry-card.mood-blue { border-left: 6px solid var(--text-blue); background-color: var(--quad-blue); }
+        .entry-card.mood-green { border-left: 6px solid var(--text-green); background-color: var(--quad-green); }
+
+        .entry-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 14px;
+        }
+
+        .entry-date {
+            font-weight: 700;
+            font-size: 1rem;
+            color: var(--text-main);
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .rating-stars {
+            color: var(--gold);
+            letter-spacing: 2px;
+            font-size: 1.15rem;
+            user-select: none;
+        }
+
+        .badges-row {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 16px;
+            flex-wrap: wrap;
+        }
+
+        .badge {
+            font-size: 0.78rem;
+            font-weight: 700;
+            padding: 4px 12px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .category-badge {
+            background-color: #EDF1EC;
+            color: var(--text-main);
+            border: 1px solid rgba(46, 43, 37, 0.05);
+        }
+
+        .mood-badge {
+            font-weight: 700;
+        }
+        .entry-card.mood-red .mood-badge { background-color: rgba(198, 40, 40, 0.08); color: var(--text-red); border: 1px solid rgba(198, 40, 40, 0.15); }
+        .entry-card.mood-yellow .mood-badge { background-color: rgba(160, 112, 0, 0.08); color: var(--text-yellow); border: 1px solid rgba(160, 112, 0, 0.15); }
+        .entry-card.mood-blue .mood-badge { background-color: rgba(21, 101, 192, 0.08); color: var(--text-blue); border: 1px solid rgba(21, 101, 192, 0.15); }
+        .entry-card.mood-green .mood-badge { background-color: rgba(46, 77, 50, 0.08); color: var(--text-green); border: 1px solid rgba(46, 77, 50, 0.15); }
+
+        .entry-content {
+            font-size: 1rem;
+            color: var(--text-main);
+            line-height: 1.75;
+            margin-bottom: 18px;
+            white-space: pre-wrap;
+            word-break: break-all;
+        }
+
+        /* Image attachment preview */
+        .entry-image-container {
+            width: 100%;
+            max-height: 280px;
+            border-radius: 16px;
+            overflow: hidden;
+            margin-bottom: 18px;
+            border: 1px solid rgba(46, 43, 37, 0.08);
+            cursor: pointer;
+            transition: opacity 0.2s;
+        }
+
+        .entry-image-container:hover {
+            opacity: 0.92;
+        }
+
+        .entry-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        /* Entry Action Buttons overlaying or in corner */
+        .entry-actions {
+            display: flex;
+            justify-content: flex-end;
+            gap: 12px;
+            border-top: 1px solid rgba(46, 43, 37, 0.06);
+            padding-top: 14px;
+            margin-top: 10px;
+        }
+
+        .btn-icon-action {
+            background: none;
+            border: none;
+            color: var(--text-muted);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            font-size: 0.82rem;
+            font-weight: 500;
+            padding: 6px 10px;
+            border-radius: 8px;
+            transition: all 0.2s;
+        }
+
+        .btn-icon-action:hover {
+            background-color: rgba(46, 43, 37, 0.05);
+            color: var(--text-main);
+        }
+
+        .btn-icon-action.delete:hover {
+            background-color: #FCE8E6;
+            color: var(--text-red);
+        }
+
+        /* Modal Dialog Base Styles */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: var(--overlay-bg);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+            padding: 16px;
+            backdrop-filter: blur(4px);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .modal-overlay.active {
+            display: flex;
+            opacity: 1;
+        }
+
+        .modal-box {
+            background-color: var(--card-bg);
+            border-radius: 28px;
+            width: 100%;
+            max-width: 580px;
+            max-height: 90vh;
+            overflow-y: auto;
+            box-shadow: 0 16px 40px rgba(0,0,0,0.15);
+            border: 1px solid rgba(46, 43, 37, 0.08);
+            transform: scale(0.95);
+            transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+
+        .modal-overlay.active .modal-box {
+            transform: scale(1);
+        }
+
+        .modal-header {
+            padding: 22px 28px;
+            border-bottom: 1px solid rgba(46, 43, 37, 0.06);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            background-color: var(--card-bg);
+            z-index: 10;
+        }
+
+        .modal-title {
+            font-family: 'Sunflower', sans-serif;
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: var(--text-main);
+        }
+
+        .modal-close {
+            background: none;
+            border: none;
+            cursor: pointer;
+            color: var(--text-muted);
+            font-size: 1.6rem;
+            display: flex;
+            align-items: center;
+            padding: 4px;
+            border-radius: 50%;
+            transition: background 0.2s;
+        }
+
+        .modal-close:hover {
+            background-color: rgba(46, 43, 37, 0.05);
+            color: var(--text-main);
+        }
+
+        .modal-body {
+            padding: 24px 28px;
+        }
+
+        .modal-footer {
+            padding: 18px 28px;
+            border-top: 1px solid rgba(46, 43, 37, 0.06);
+            display: flex;
+            justify-content: flex-end;
+            gap: 12px;
+            position: sticky;
+            bottom: 0;
+            background-color: var(--card-bg);
+            z-index: 10;
+        }
+
+        /* Add / Edit Multi-step Layout */
+        .step-indicator-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 24px;
+            position: relative;
+        }
+
+        .step-indicator-bar::after {
+            content: "";
+            position: absolute;
+            left: 0;
+            right: 0;
+            top: 50%;
+            height: 2px;
+            background-color: #E6E3DB;
+            z-index: 1;
+        }
+
+        .step-node {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            background-color: #E6E3DB;
+            color: var(--text-muted);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.85rem;
+            font-weight: bold;
+            position: relative;
+            z-index: 2;
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        .step-node.active {
+            background-color: var(--primary);
+            color: white;
+            box-shadow: 0 0 0 4px var(--primary-light);
+        }
+
+        .step-node.completed {
+            background-color: var(--primary-dark);
+            color: white;
+        }
+
+        .dialog-step {
+            display: none;
+        }
+
+        .dialog-step.active {
+            display: block;
+        }
+
+        /* Form Controls */
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-label {
+            display: block;
+            font-size: 0.9rem;
+            font-weight: 700;
+            margin-bottom: 8px;
+            color: var(--text-main);
+        }
+
+        .form-input-text {
+            width: 100%;
+            padding: 12px 16px;
+            border-radius: 12px;
+            border: 1px solid rgba(46, 43, 37, 0.15);
+            font-family: inherit;
+            font-size: 0.95rem;
+            outline: none;
+            transition: border-color 0.2s;
+        }
+
+        .form-input-text:focus {
+            border-color: var(--primary);
+        }
+
+        .form-textarea {
+            width: 100%;
+            min-height: 140px;
+            padding: 14px 16px;
+            border-radius: 12px;
+            border: 1px solid rgba(46, 43, 37, 0.15);
+            font-family: inherit;
+            font-size: 0.95rem;
+            outline: none;
+            resize: vertical;
+            line-height: 1.6;
+            transition: border-color 0.2s;
+        }
+
+        .form-textarea:focus {
+            border-color: var(--primary);
+        }
+
+        /* Step 1 Inner interactive elements */
+        .mood-sub-choice {
+            background-color: #FAF8F5;
+            padding: 10px 14px;
+            border-radius: 12px;
+            border: 1px solid rgba(46, 43, 37, 0.08);
+            margin-bottom: 8px;
+            font-size: 0.85rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            transition: background-color 0.2s, border-color 0.2s;
+        }
+
+        .mood-sub-choice:hover {
+            background-color: #F1EFE9;
+        }
+
+        .mood-sub-choice.selected {
+            background-color: var(--primary-light);
+            border-color: var(--primary);
+            color: var(--primary-dark);
+            font-weight: bold;
+        }
+
+        /* Star Interactive Selector */
+        .star-rating-selector {
+            display: flex;
+            gap: 12px;
+            font-size: 1.8rem;
+            color: #E6E3DB;
+            cursor: pointer;
+            margin-bottom: 6px;
+        }
+
+        .star-rating-selector span {
+            transition: transform 0.15s;
+        }
+
+        .star-rating-selector span:hover {
+            transform: scale(1.15);
+        }
+
+        .star-rating-selector span.filled {
+            color: var(--gold);
+        }
+
+        /* Image File Uploader */
+        .image-uploader-area {
+            border: 2px dashed rgba(46, 43, 37, 0.15);
+            background-color: #FDFCFA;
+            padding: 24px;
+            border-radius: 16px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.2s;
+            position: relative;
+        }
+
+        .image-uploader-area:hover {
+            border-color: var(--primary);
+            background-color: var(--primary-light);
+        }
+
+        .image-uploader-area .material-symbols-outlined {
+            font-size: 2.2rem;
+            color: var(--text-muted);
+            margin-bottom: 8px;
+        }
+
+        .uploader-preview {
+            max-width: 100%;
+            max-height: 180px;
+            border-radius: 12px;
+            margin-top: 12px;
+            display: none;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+        }
+
+        /* Inspiring Quote modal specific style */
+        .quote-modal-box {
+            text-align: center;
+            padding: 36px 28px;
+            background: linear-gradient(135deg, #FAF8F5 0%, #EFF4EF 100%);
+        }
+
+        .quote-icon {
+            font-size: 3rem;
+            color: var(--primary);
+            margin-bottom: 16px;
+            font-family: 'Sunflower', sans-serif;
+        }
+
+        .quote-body-text {
+            font-size: 1.15rem;
+            font-weight: 500;
+            color: var(--text-main);
+            line-height: 1.8;
+            margin-bottom: 18px;
+            position: relative;
+        }
+
+        .quote-author {
+            font-size: 0.88rem;
+            color: var(--text-muted);
+            font-style: italic;
+        }
+
+        /* Lightbox Image */
+        .lightbox-box {
+            max-width: 800px;
+            background: none;
+            border: none;
+            box-shadow: none;
+            position: relative;
+        }
+
+        .lightbox-box img {
+            width: 100%;
+            height: auto;
+            max-height: 80vh;
+            object-fit: contain;
+            border-radius: 16px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+        }
+
+        .lightbox-close-overlay {
+            position: absolute;
+            top: -40px;
+            right: 0;
+            color: white;
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        /* No Results and empty garden states */
+        .no-results {
+            text-align: center;
+            padding: 64px 20px;
+            background: white;
+            border-radius: 24px;
+            color: var(--text-muted);
+            box-shadow: 0 4px 24px rgba(46, 43, 37, 0.015);
+            display: none;
+            border: 1px dashed rgba(46, 43, 37, 0.08);
+        }
+
+        .no-results p {
+            margin-top: 10px;
+            font-size: 0.95rem;
+        }
+
+        .no-results span {
+            font-size: 3rem;
+        }
+
+        /* Floating Back To Top button widget */
+        .totop {
+            position: fixed;
+            bottom: 24px;
+            right: 24px;
+            background-color: var(--primary);
+            color: white;
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            box-shadow: 0 4px 16px rgba(126, 149, 125, 0.3);
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            user-select: none;
+            text-decoration: none;
+            z-index: 99;
+        }
+
+        .totop.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .totop:hover {
+            background-color: var(--primary-dark);
+            transform: translateY(-3px);
+        }
+
+        /* Floating Action Button for adding entries */
+        .fab-add {
+            position: fixed;
+            bottom: 24px;
+            left: 24px;
+            background-color: var(--primary-dark);
+            color: white;
+            padding: 14px 24px;
+            border-radius: 30px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            cursor: pointer;
+            box-shadow: 0 6px 20px rgba(88, 107, 87, 0.35);
+            font-weight: 700;
+            font-size: 0.95rem;
+            z-index: 99;
+            transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+            border: none;
+        }
+
+        .fab-add:hover {
+            transform: scale(1.05) translateY(-2px);
+            background-color: #475746;
+            box-shadow: 0 8px 24px rgba(88, 107, 87, 0.45);
+        }
+
+        footer {
+            text-align: center;
+            padding: 40px 16px 20px 16px;
+            color: var(--text-muted);
+            font-size: 0.85rem;
+            letter-spacing: 0.5px;
+            border-top: 1px solid rgba(46, 43, 37, 0.05);
+            margin-top: 40px;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .stats-card {
+                grid-template-columns: 1fr;
+                gap: 15px;
+                padding: 20px;
+            }
+            .stat-item:not(:last-child) {
+                border-right: none;
+                border-bottom: 1px solid rgba(46, 43, 37, 0.08);
+                padding-bottom: 12px;
+            }
+            body {
+                padding: 16px 8px;
+            }
+            header h1 {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <!-- Header Garden Area -->
+        <header>
+            <h1>나의 감사 정원 🌿</h1>
+            <p>소소한 일상 속에서 발견하는 반짝이는 마음 조각들을 가꾸어보세요.<br>작성하신 감사 기록은 소중히 보관되며 마음날씨로 예쁘게 분류됩니다.</p>
+            <div class="action-header-row">
+                <button class="btn btn-primary btn-ripple" onclick="openAddEntryModal()">
+                    <span class="material-symbols-outlined">edit</span>새 감사 일기 쓰기
+                </button>
+                <button class="btn btn-secondary btn-ripple" onclick="exportData()">
+                    <span class="material-symbols-outlined">download</span>정원 데이터 백업 (JSON)
+                </button>
+                <button class="btn btn-secondary btn-ripple" onclick="triggerImport()">
+                    <span class="material-symbols-outlined">upload</span>데이터 가져오기
+                </button>
+                <input type="file" id="importFileInput" accept=".json" style="display: none;" onchange="importData(event)">
+            </div>
+        </header>
+
+        <!-- Dynamic Statistics Row -->
+        <div class="stats-card" id="dashboardStats">
+            <div class="stat-item">
+                <div class="stat-lbl">
+                    <span class="material-symbols-outlined" style="font-size:1.1rem; color:var(--primary)">database</span>누적 감사 조각
+                </div>
+                <div class="stat-val" id="totalCount">0개</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-lbl">
+                    <span class="material-symbols-outlined" style="font-size:1.1rem; color:var(--gold)">star</span>평균 따뜻함 온도
+                </div>
+                <div class="stat-val" id="averageRating">0.0★</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-lbl" style="margin-bottom: 8px;">
+                    <span class="material-symbols-outlined" style="font-size:1.1rem; color:var(--accent)">local_florist</span>자주 심은 생각 분야
+                </div>
+                <div class="stat-val" style="font-size: 0.9rem; font-weight: normal;" id="topCategories">
+                    <!-- Dynamic Badges -->
+                    <span class="stat-category-tag">기록 없음</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Filter & Search Console -->
+        <div class="filter-panel">
+            <div class="filter-title">
+                <span class="material-symbols-outlined">search</span>내 감사정원 탐색 및 검색
+            </div>
+            
+            <div class="search-wrapper">
+                <span class="material-symbols-outlined">search</span>
+                <input type="text" id="searchInput" class="search-box" placeholder="오늘 감사했던 기억 속 단어, 날짜, 감정을 검색해 보세요..." oninput="filterAndRender()" />
+            </div>
+            
+            <div>
+                <div class="filter-title">
+                    <span class="material-symbols-outlined">filter_drama</span>🌤️ 마음날씨별 분면 필터
+                </div>
+                <div class="mood-grid">
+                    <div class="mood-btn red" id="btnFilterRed" onclick="toggleQuadrantFilter('red')">
+                        <span>🔴 활력↑ 즐거움↓</span>
+                        <span style="font-size: 0.75rem; opacity: 0.85;">(초조 / 분노 / 피로)</span>
+                    </div>
+                    <div class="mood-btn yellow" id="btnFilterYellow" onclick="toggleQuadrantFilter('yellow')">
+                        <span>🟡 활력↑ 즐거움↑</span>
+                        <span style="font-size: 0.75rem; opacity: 0.85;">(신남 / 활기 / 기쁨)</span>
+                    </div>
+                    <div class="mood-btn blue" id="btnFilterBlue" onclick="toggleQuadrantFilter('blue')">
+                        <span>🔵 활력↓ 즐거움↓</span>
+                        <span style="font-size: 0.75rem; opacity: 0.85;">(우울 / 무기력)</span>
+                    </div>
+                    <div class="mood-btn green" id="btnFilterGreen" onclick="toggleQuadrantFilter('green')">
+                        <span>🟢 활력↓ 즐거움↑</span>
+                        <span style="font-size: 0.75rem; opacity: 0.85;">(평온 / 다행 / 편안)</span>
+                    </div>
+                </div>
+            </div>
+
+            <div style="margin-top: 20px;">
+                <div class="filter-title">
+                    <span class="material-symbols-outlined">sell</span>🏷️ 카테고리 태그 필터
+                </div>
+                <div class="row-chips" id="categoriesFilterRow">
+                    <span class="chip active" onclick="setCategoryFilter('ALL', this)">전체보기</span>
+                    <span class="chip" onclick="setCategoryFilter('일상', this)">일상</span>
+                    <span class="chip" onclick="setCategoryFilter('건강', this)">건강</span>
+                    <span class="chip" onclick="setCategoryFilter('가족', this)">가족</span>
+                    <span class="chip" onclick="setCategoryFilter('일/학업', this)">일/학업</span>
+                    <span class="chip" onclick="setCategoryFilter('관계', this)">관계</span>
+                    <span class="chip" onclick="setCategoryFilter('성장', this)">성장</span>
+                    <span class="chip" onclick="setCategoryFilter('기타', this)">기타</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Dynamic Gratitude List -->
+        <div class="entries-list" id="entriesContainer">
+            <!-- Rendered Dynamically via JS -->
+        </div>
+
+        <!-- No Results state -->
+        <div class="no-results" id="noResultsElement">
+            <span class="material-symbols-outlined">compost</span>
+            <h3 style="margin-top: 14px; font-family:'Sunflower',sans-serif;">감사 정원이 아직 비어있거나 필터 결과가 없습니다.</h3>
+            <p>검색어를 조절하시거나, 왼쪽 아래의 '새 감사 일기 쓰기' 버튼을 눌러 행복을 기록해 보세요. 🌻</p>
+        </div>
+
+        <!-- Footer -->
+        <footer>
+            <p>© 2026 나의 하루 감사정원 (My Web Gratitude Garden). All rights reserved.</p>
+            <p style="margin-top: 8px; opacity: 0.75">본 앱은 소중한 하루 감사일기를 로컬 웹스토리지(localStorage)에 안전하게 영구 저장합니다.</p>
+        </footer>
+    </div>
+
+    <!-- Floating action items -->
+    <button class="fab-add" onclick="openAddEntryModal()">
+        <span class="material-symbols-outlined">add_circle</span>감사 꽃 심기
+    </button>
+    <a href="#" class="totop" id="btnBackToTop" title="맨 위로 가기">
+        <span class="material-symbols-outlined">arrow_upward</span>
+    </a>
+
+
+    <!-- MODAL: ADD/EDIT DIARY DIALOG (Step-by-Step UI matching Jetpack Compose AddGratitudeDetailDialog!) -->
+    <div class="modal-overlay" id="addEntryModal">
+        <div class="modal-box">
+            <div class="modal-header">
+                <div class="modal-title" id="modalFormTitle">새 감사 심기</div>
+                <button class="modal-close" onclick="closeAddEntryModal()">
+                    <span class="material-symbols-outlined">close</span>
+                </button>
+            </div>
+            
+            <div class="modal-body">
+                <!-- Step nodes -->
+                <div class="step-indicator-bar">
+                    <div class="step-node active" id="nodeStep1">1</div>
+                    <div class="step-node" id="nodeStep2">2</div>
+                </div>
+
+                <form id="gratitudeForm" onsubmit="event.preventDefault();">
+                    <input type="hidden" id="editEntryId" value="">
+
+                    <!-- STEP 1: Weather Mood and Date Selection -->
+                    <div class="dialog-step active" id="step1Container">
+                        <div class="form-group">
+                            <label class="form-label">📅 언제 심은 조각인가요?</label>
+                            <input type="date" id="inputEntryDate" class="form-input-text" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label">🌤️ 당신의 감사 순간 '마음날씨 분면'은 어떤가요?</label>
+                            <p style="font-size: 0.78rem; color: var(--text-muted); margin-bottom: 12px; line-height: 1.4;">
+                                마음의 활력 정도와 느꼈던 즐거움 정도를 4개 분면으로 분류해 보세요.
+                            </p>
+                            
+                            <div class="mood-grid">
+                                <div class="mood-btn red" id="formQuadRed" onclick="selectFormQuadrant('red')">
+                                    <span>🔴 제1분면</span>
+                                    <span style="font-size: 0.78rem; font-weight:normal;">활력 높음, 즐거움 낮음<br>(분노/초조/걱정 속 감사)</span>
+                                </div>
+                                <div class="mood-btn yellow" id="formQuadYellow" onclick="selectFormQuadrant('yellow')">
+                                    <span>🟡 제2분면</span>
+                                    <span style="font-size: 0.78rem; font-weight:normal;">활력 높음, 즐거움 높음<br>(기쁨/설렘/역동적 감사)</span>
+                                </div>
+                                <div class="mood-btn blue" id="formQuadBlue" onclick="selectFormQuadrant('blue')">
+                                    <span>🔵 제3분면</span>
+                                    <span style="font-size: 0.78rem; font-weight:normal;">활력 낮음, 즐거움 낮음<br>(차분/우울/고단한 극복)</span>
+                                </div>
+                                <div class="mood-btn green" id="formQuadGreen" onclick="selectFormQuadrant('green')">
+                                    <span>🟢 제4분면</span>
+                                    <span style="font-size: 0.78rem; font-weight:normal;">활력 낮음, 즐거움 높음<br>(평온/안식/다행스러운 감사)</span>
+                                </div>
+                            </div>
+                            <input type="hidden" id="inputFormQuadrant" value="" required>
+                        </div>
+
+                        <!-- Step 1 Sub feelings weather selection -->
+                        <div class="form-group" id="subFeelingsGroup" style="display: none;">
+                            <label class="form-label">✨ 마음의 구체적인 물결은 어떤 단어에 가깝나요?</label>
+                            <div id="subFeelingsList">
+                                <!-- Generated based on quadrant selection -->
+                            </div>
+                            <input type="hidden" id="inputFormMoodWord" value="">
+                        </div>
+                    </div>
+
+                    <!-- STEP 2: Detail content, category, rating, image -->
+                    <div class="dialog-step" id="step2Container">
+                        <div class="form-group">
+                            <label class="form-label" for="inputFormContent">✍️ 오늘 어떤 감사한 일이 있었는지 정성스레 적어주세요</label>
+                            <textarea id="inputFormContent" class="form-textarea" placeholder="당신에게 행복을 건넨 그 순간을 솔직하고 따뜻하게 옮겨보세요..." required></textarea>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label">🏷️ 카테고리 분류</label>
+                            <div class="row-chips" id="formCategoryChips">
+                                <span class="chip" onclick="selectFormCategory('일상', this)">일상</span>
+                                <span class="chip" onclick="selectFormCategory('건강', this)">건강</span>
+                                <span class="chip" onclick="selectFormCategory('가족', this)">가족</span>
+                                <span class="chip" onclick="selectFormCategory('일/학업', this)">일/학업</span>
+                                <span class="chip" onclick="selectFormCategory('관계', this)">관계</span>
+                                <span class="chip" onclick="selectFormCategory('성장', this)">성장</span>
+                                <span class="chip" onclick="selectFormCategory('기타', this)">기타</span>
+                            </div>
+                            <input type="hidden" id="inputFormCategory" value="일상" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label">🔥 이 순간이 전해준 따뜻함 (감사 별점)</label>
+                            <div class="star-rating-selector" id="formStarRating">
+                                <span class="material-symbols-outlined" data-value="1" onclick="selectFormRating(1)">star</span>
+                                <span class="material-symbols-outlined" data-value="2" onclick="selectFormRating(2)">star</span>
+                                <span class="material-symbols-outlined" data-value="3" onclick="selectFormRating(3)">star</span>
+                                <span class="material-symbols-outlined" data-value="4" onclick="selectFormRating(4)">star</span>
+                                <span class="material-symbols-outlined" data-value="5" onclick="selectFormRating(5)">star</span>
+                            </div>
+                            <input type="hidden" id="inputFormRating" value="5" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label">🖼️ 이 순간의 기적을 담은 사진 올리기 (선택)</label>
+                            <div class="image-uploader-area" onclick="document.getElementById('inputFormFile').click();">
+                                <span class="material-symbols-outlined">add_photo_alternate</span>
+                                <div style="font-size: 0.85rem; font-weight: 500;">사진 파일 추가하기</div>
+                                <div style="font-size: 0.72rem; color: var(--text-muted); margin-top: 4px;">클릭하여 기기의 사진을 추가해 보세요 (JPG, PNG)</div>
+                                <img src="" id="formImagePreview" class="uploader-preview" alt="미리보기">
+                            </div>
+                            <input type="file" id="inputFormFile" accept="image/*" style="display: none;" onchange="previewUploadImage(event)">
+                            <input type="hidden" id="inputFormImageBase64" value="">
+                        </div>
+                    </div>
+                </form>
+            </div>
+            
+            <div class="modal-footer">
+                <button class="btn btn-secondary btn-ripple" id="btnPrevStep" style="display: none;" onclick="goToStep(1)">이전 단계</button>
+                <button class="btn btn-primary btn-ripple" id="btnNextStep" onclick="handleFormNext()">다음 단계</button>
+                <button class="btn btn-primary btn-ripple" id="btnSubmitForm" style="display: none;" onclick="submitGratitudeForm()">정원에 심기 🌱</button>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- MODAL: HEALING QUOTE POPUP -->
+    <div class="modal-overlay" id="quoteModal">
+        <div class="modal-box quote-modal-box">
+            <div class="quote-icon">🌿</div>
+            <div style="font-size: 0.85rem; text-transform: uppercase; letter-spacing: 2px; color: var(--primary); font-weight: bold; margin-bottom: 12px;">정원에 보낸 행복의 꽃씨</div>
+            <div class="quote-body-text" id="quoteBody">
+                "네가 가진 것에 감사해라. 그러면 결국 더 많이 가지게 될 것이다."
+            </div>
+            <div class="quote-author" id="quoteAuthor">
+                — 오프라 윈프리
+            </div>
+            <button class="btn btn-primary btn-ripple" style="margin-top: 24px; padding: 10px 32px;" onclick="closeQuoteModal()">
+                정원으로 돌아가기
+            </button>
+        </div>
+    </div>
+
+
+    <!-- MODAL: LIGHTBOX IMAGE VIEWER -->
+    <div class="modal-overlay" id="lightboxModal">
+        <div class="modal-box lightbox-box">
+            <button class="lightbox-close-overlay" onclick="closeLightbox()">
+                <span class="material-symbols-outlined">close</span> 닫기
+            </button>
+            <img src="" id="lightboxImage" alt="원본 크기 이미지">
+        </div>
+    </div>
+
+
+    <!-- JAVASCRIPT: Full State, Business Logic & DB Interactions -->
+    <script>
+        // Default sample entries to make the garden looks beautiful immediately
+        const defaultSamples = [
+            {
+                id: "sample-1",
+                date: "2026-06-22",
+                quadrant: "green",
+                moodWord: "평온하고 편안한 쉼",
+                content: "오후에 세차게 소나기가 내린 뒤 맑게 갠 투명한 하늘을 보며 따뜻한 캐모마일 차를 우려 마셨다. 창문을 열자 시원한 바람과 싱그러운 흙냄새가 지친 방 안을 기분 좋게 가득 채웠다. 복잡했던 생각들이 차 한 잔과 함께 차분히 가라앉는 이 평온한 정적을 마음껏 누릴 수 있어 깊이 감사하다.",
+                category: "일상",
+                rating: 5,
+                image: ""
+            },
+            {
+                id: "sample-2",
+                date: "2026-06-21",
+                quadrant: "yellow",
+                moodWord: "기쁨과 즐거움으로 벅참",
+                content: "오랫동안 바쁜 일상 속에서 연락이 뜸했던 고등학교 시절 친구에게서 깜짝 안부 전화가 걸려왔다. 시시콜콜한 안부부터 고등학교 정문 앞 떡볶이집 이야기까지 나누며 한참을 배를 잡고 웃었다. 세월이 아무리 흘러도 늘 같은 온도와 편안함으로 우정을 나누어주는 소중한 인연이 곁에 있음에 참 든든하고 기쁘다.",
+                category: "관계",
+                rating: 5,
+                image: ""
+            },
+            {
+                id: "sample-3",
+                date: "2026-06-20",
+                quadrant: "blue",
+                moodWord: "고단함을 다독이며 안식함",
+                content: "한 주 동안 팽팽하게 굳어있던 몸과 마음의 피로를 사르르 풀어내기 위해 오랜만에 욕조에 뜨거운 물을 가득 담가 반신욕을 즐겼다. 뻐근했던 허리와 목의 긴장이 나른하게 풀리는 느낌이 참 따뜻했다. 평소 바쁘다는 핑계로 밀쳐두었던 내 육체의 비명에 귀 기울이고 스스로를 돌볼 수 있는 주말의 짧은 여유에 감사하다.",
+                category: "건강",
+                rating: 4,
+                image: ""
+            }
+        ];
+
+        // Inspiring Quote Database
+        const healingQuotes = [
+            { body: "네가 가진 것에 감사해라. 그러면 결국 더 많이 가지게 될 것이다.", author: "오프라 윈프리" },
+            { body: "감사는 위대한 영혼의 기쁨이자, 인생을 아름답게 만드는 향기다.", author: "소크라테스" },
+            { body: "행복은 감사라는 방 안에 가만히 머물지만, 투덜거림이라는 바람을 타고 훌쩍 날아가 버린다.", author: "하루 감사정원" },
+            { body: "감사하는 마음은 모든 덕의 어머니일 뿐만 아니라, 가장 위대한 최고의 덕이다.", author: "키케로" },
+            { body: "네 마음 밭에서 일어나는 모든 보잘것없는 유익에도 깊은 감사를 건네라. 그것들이 우주의 보물창고다.", author: "마르쿠스 아우렐리우스" },
+            { body: "감사는 마음의 기억이자, 과거를 아름다운 추억으로 바꾸는 기적의 필터다.", author: "스웨덴 속담" },
+            { body: "가장 아름다운 꽃은 마음 깊은 고요와 감사의 골짜기 속에서만 홀로 고독하게 피어난다.", author: "작자 미상" },
+            { body: "만족스럽게 먹고 마시고, 쉴 수 있는 소소하고 정직한 평범함 속에 감사의 신비가 숨쉰다.", author: "릴케" }
+        ];
+
+        // Sub emotion terms per quadrant
+        const quadrantFeelings = {
+            red: ["불안을 이겨낸 뿌듯함", "긴장 속에서 찾은 다행", "걱정 끝에 다가온 안도", "초조함을 극복한 침착함"],
+            yellow: ["기쁨과 신나는 설렘", "벅차오르는 활기찬 생동", "유쾌하고 긍정적인 웃음", "열정과 생동감 넘치는 보람"],
+            blue: ["고단함 속 잔잔한 감사", "아쉬움을 안고서 배운 지혜", "피곤하지만 아늑한 이완", "차분하게 외로움을 극복함"],
+            green: ["평온하고 아늑한 쉼", "다행스럽고 한가로운 평정", "안락하고 부드러운 평화", "가볍고 가뿐한 만족감"]
+        };
+
+        // Application State
+        let entries = [];
+        let currentFilterCategory = "ALL";
+        let currentFilterQuadrant = null;
+        let currentStep = 1;
+
+        // On Page Load
+        window.addEventListener("DOMContentLoaded", () => {
+            initApp();
+            setupScrollHandler();
+        });
+
+        // Initialize App & Load from LocalStorage
+        function initApp() {
+            const stored = localStorage.getItem("gratitude_garden_entries");
+            if (stored) {
+                try {
+                    entries = JSON.parse(stored);
+                } catch(e) {
+                    console.error("데이터 구문 분석 에러, 기본 데이터로 재설정합니다.", e);
+                    entries = [...defaultSamples];
+                }
+            } else {
+                entries = [...defaultSamples];
+                saveToLocalStorage();
+            }
+
+            // Set Form Date Default to Today
+            const today = new Date().toISOString().split('T')[0];
+            document.getElementById("inputEntryDate").value = today;
+
+            filterAndRender();
+        }
+
+        // Save data helper
+        function saveToLocalStorage() {
+            localStorage.setItem("gratitude_garden_entries", JSON.stringify(entries));
+        }
+
+        // Setup Floating To Top scroll indicator
+        function setupScrollHandler() {
+            const btn = document.getElementById("btnBackToTop");
+            window.addEventListener("scroll", () => {
+                if (window.scrollY > 300) {
+                    btn.classList.add("visible");
+                } else {
+                    btn.classList.remove("visible");
+                }
+            });
+        }
+
+        // Dynamic stats calculation
+        function calculateStats() {
+            const total = entries.length;
+            document.getElementById("totalCount").innerText = `${total}개`;
+
+            let avg = 0;
+            if (total > 0) {
+                const sum = entries.reduce((acc, curr) => acc + Number(curr.rating), 0);
+                avg = (sum / total).toFixed(1);
+            }
+            document.getElementById("averageRating").innerText = `${avg}★`;
+
+            // Compute Top Categories breakdown
+            const catMap = {};
+            entries.forEach(e => {
+                if (e.category) {
+                    catMap[e.category] = (catMap[e.category] || 0) + 1;
+                }
+            });
+
+            const sortedCats = Object.entries(catMap).sort((a, b) => b[1] - a[1]);
+            const targetDiv = document.getElementById("topCategories");
+            targetDiv.innerHTML = "";
+
+            if (sortedCats.length === 0) {
+                targetDiv.innerHTML = `<span class="stat-category-tag">기록 없음</span>`;
+            } else {
+                // Take top 3
+                sortedCats.slice(0, 3).forEach(([cat, count]) => {
+                    const pct = Math.round((count / total) * 100);
+                    targetDiv.innerHTML += `<span class="stat-category-tag">${cat}: ${count}개(${pct}%)</span>`;
+                });
+            }
+        }
+
+        // Filter engine
+        function filterAndRender() {
+            calculateStats();
+
+            const query = document.getElementById("searchInput").value.toLowerCase();
+            const container = document.getElementById("entriesContainer");
+            container.innerHTML = "";
+
+            // Sort entries in reverse chronological order (Newest first)
+            const sorted = [...entries].sort((a,b) => new Date(b.date) - new Date(a.date));
+            let renderCount = 0;
+
+            sorted.forEach(entry => {
+                const dateText = formatDateKorean(entry.date);
+                const matchQuery = entry.content.toLowerCase().includes(query) || 
+                                   (entry.category || "").toLowerCase().includes(query) ||
+                                   (entry.moodWord || "").toLowerCase().includes(query) ||
+                                   dateText.includes(query);
+                
+                const matchCategory = currentFilterCategory === "ALL" || entry.category === currentFilterCategory;
+                const matchQuadrant = !currentFilterQuadrant || entry.quadrant === currentFilterQuadrant;
+
+                if (matchQuery && matchCategory && matchQuadrant) {
+                    renderCount++;
+                    container.appendChild(createEntryCardElement(entry));
+                }
+            });
+
+            const noResults = document.getElementById("noResultsElement");
+            if (renderCount === 0) {
+                noResults.style.display = "block";
+            } else {
+                noResults.style.display = "none";
+            }
+        }
+
+        // Format Date string helper (YYYY-MM-DD -> YYYY년 MM월 DD일 (요일))
+        function formatDateKorean(dateStr) {
+            try {
+                const d = new Date(dateStr);
+                if (isNaN(d.getTime())) return dateStr;
+                const days = ["일", "월", "화", "수", "목", "금", "토"];
+                const year = d.getFullYear();
+                const month = d.getMonth() + 1;
+                const date = d.getDate();
+                const dayName = days[d.getDay()];
+                return `${year}년 ${month}월 ${date}일 (${dayName})`;
+            } catch(e) {
+                return dateStr;
+            }
+        }
+
+        // Create DOM entry card element dynamically
+        function createEntryCardElement(entry) {
+            const card = document.createElement("div");
+            card.className = `entry-card mood-${entry.quadrant || 'green'}`;
+            card.id = `card-${entry.id}`;
+
+            const ratingStars = "★".repeat(entry.rating) + "☆".repeat(5 - entry.rating);
+            const dateStrFormatted = formatDateKorean(entry.date);
+
+            // Quadrant badge details
+            const quadrantLabels = {
+                red: "🔴 활력↑ 즐거움↓ | 걱정 속 발견",
+                yellow: "🟡 활력↑ 즐거움↑ | 눈부신 생기",
+                blue: "🔵 활력↓ 즐거움↓ | 조용하지만 든든",
+                green: "🟢 활력↓ 즐거움↑ | 평온하고 아늑"
+            };
+            const quadBadgeLabel = quadrantLabels[entry.quadrant] || "🟢 마음날씨";
+
+            let imageHtml = "";
+            if (entry.image) {
+                imageHtml = `
+                    <div class="entry-image-container" onclick="openLightbox('${entry.image}')">
+                        <img src="${entry.image}" class="entry-image" alt="감사하는 기적의 순간">
+                    </div>
+                `;
+            }
+
+            card.innerHTML = `
+                <div class="entry-header">
+                    <span class="entry-date">
+                        <span class="material-symbols-outlined" style="font-size:1.2rem;color:var(--primary-dark)">calendar_today</span>
+                        ${dateStrFormatted}
+                    </span>
+                    <span class="rating-stars" title="따뜻함 온도: ${entry.rating}/5">${ratingStars}</span>
+                </div>
+                <div class="badges-row">
+                    <span class="badge category-badge">
+                        <span class="material-symbols-outlined" style="font-size:0.95rem;">local_offer</span>
+                        ${entry.category || '일상'}
+                    </span>
+                    <span class="badge mood-badge">
+                        ${quadBadgeLabel} ${entry.moodWord ? `(${entry.moodWord})` : ''}
+                    </span>
+                </div>
+                <div class="entry-content">${escapeHTML(entry.content)}</div>
+                ${imageHtml}
+                <div class="entry-actions">
+                    <button class="btn-icon-action" onclick="openEditEntryModal('${entry.id}')">
+                        <span class="material-symbols-outlined" style="font-size:1.1rem;">edit_note</span>수정하기
+                    </button>
+                    <button class="btn-icon-action delete" onclick="deleteEntry('${entry.id}')">
+                        <span class="material-symbols-outlined" style="font-size:1.1rem;">delete_sweep</span>일기 지우기
+                    </button>
+                </div>
+            `;
+
+            return card;
+        }
+
+        // Filter triggers
+        function setCategoryFilter(cat, element) {
+            currentFilterCategory = cat;
+            const chips = document.querySelectorAll("#categoriesFilterRow .chip");
+            chips.forEach(c => c.classList.remove("active"));
+            element.classList.add("active");
+            filterAndRender();
+        }
+
+        function toggleQuadrantFilter(quad) {
+            const btnMap = {
+                red: "btnFilterRed",
+                yellow: "btnFilterYellow",
+                blue: "btnFilterBlue",
+                green: "btnFilterGreen"
+            };
+
+            const targetId = btnMap[quad];
+            const element = document.getElementById(targetId);
+
+            if (currentFilterQuadrant === quad) {
+                currentFilterQuadrant = null;
+                element.classList.remove("active");
+            } else {
+                // Clear active states
+                document.querySelectorAll(".mood-grid .mood-btn").forEach(b => b.classList.remove("active"));
+                currentFilterQuadrant = quad;
+                element.classList.add("active");
+            }
+            filterAndRender();
+        }
+
+        // MODAL ADD/EDIT CONTROLS
+        function openAddEntryModal() {
+            resetForm();
+            document.getElementById("modalFormTitle").innerText = "새 감사 심기 🌿";
+            document.getElementById("addEntryModal").classList.add("active");
+            goToStep(1);
+        }
+
+        function openEditEntryModal(id) {
+            resetForm();
+            const entry = entries.find(e => e.id === id);
+            if (!entry) return;
+
+            document.getElementById("modalFormTitle").innerText = "기억 다듬기 ✏️";
+            document.getElementById("editEntryId").value = entry.id;
+            document.getElementById("inputEntryDate").value = entry.date;
+            
+            // Set Quadrant
+            selectFormQuadrant(entry.quadrant);
+            document.getElementById("inputFormMoodWord").value = entry.moodWord;
+            
+            // Reselect subfeelings active state if any
+            setTimeout(() => {
+                const subChips = document.querySelectorAll(".mood-sub-choice");
+                subChips.forEach(chip => {
+                    if (chip.innerText.includes(entry.moodWord)) {
+                        chip.classList.add("selected");
+                    }
+                });
+            }, 100);
+
+            // Step 2 details
+            document.getElementById("inputFormContent").value = entry.content;
+            
+            // Set Category
+            document.getElementById("inputFormCategory").value = entry.category;
+            const catChips = document.querySelectorAll("#formCategoryChips .chip");
+            catChips.forEach(c => {
+                if (c.innerText === entry.category) {
+                    c.classList.add("active");
+                } else {
+                    c.classList.remove("active");
+                }
+            });
+
+            // Set Rating
+            selectFormRating(entry.rating);
+
+            // Set Image
+            if (entry.image) {
+                document.getElementById("inputFormImageBase64").value = entry.image;
+                const previewImg = document.getElementById("formImagePreview");
+                previewImg.src = entry.image;
+                previewImg.style.display = "block";
+            }
+
+            document.getElementById("addEntryModal").classList.add("active");
+            goToStep(1);
+        }
+
+        function closeAddEntryModal() {
+            document.getElementById("addEntryModal").classList.remove("active");
+        }
+
+        function resetForm() {
+            document.getElementById("editEntryId").value = "";
+            document.getElementById("inputEntryDate").value = new Date().toISOString().split('T')[0];
+            document.getElementById("inputFormQuadrant").value = "";
+            document.getElementById("inputFormMoodWord").value = "";
+            document.getElementById("inputFormContent").value = "";
+            document.getElementById("inputFormCategory").value = "일상";
+            document.getElementById("inputFormRating").value = "5";
+            document.getElementById("inputFormImageBase64").value = "";
+            document.getElementById("formImagePreview").style.display = "none";
+            document.getElementById("formImagePreview").src = "";
+            document.getElementById("inputFormFile").value = "";
+
+            // Reset step UI
+            document.querySelectorAll(".dialog-step").forEach(s => s.classList.remove("active"));
+            document.getElementById("step1Container").classList.add("active");
+            
+            // Reset active nodes
+            document.getElementById("nodeStep1").className = "step-node active";
+            document.getElementById("nodeStep2").className = "step-node";
+
+            // Reset mood quadrant selected state
+            document.querySelectorAll("#addEntryModal .mood-grid .mood-btn").forEach(b => b.classList.remove("active"));
+            document.getElementById("subFeelingsGroup").style.display = "none";
+            document.getElementById("subFeelingsList").innerHTML = "";
+
+            // Reset category active chip
+            const catChips = document.querySelectorAll("#formCategoryChips .chip");
+            catChips.forEach(c => {
+                if (c.innerText === "일상") c.classList.add("active");
+                else c.classList.remove("active");
+            });
+
+            // Reset stars rating to 5
+            selectFormRating(5);
+        }
+
+        // Multi-step modal navigation
+        function goToStep(step) {
+            currentStep = step;
+            if (step === 1) {
+                document.getElementById("step1Container").classList.add("active");
+                document.getElementById("step2Container").classList.remove("active");
+                document.getElementById("nodeStep1").className = "step-node active";
+                document.getElementById("nodeStep2").className = "step-node";
+                
+                document.getElementById("btnPrevStep").style.display = "none";
+                document.getElementById("btnNextStep").style.display = "block";
+                document.getElementById("btnSubmitForm").style.display = "none";
+            } else {
+                document.getElementById("step1Container").classList.remove("active");
+                document.getElementById("step2Container").classList.add("active");
+                document.getElementById("nodeStep1").className = "step-node completed";
+                document.getElementById("nodeStep2").className = "step-node active";
+
+                document.getElementById("btnPrevStep").style.display = "block";
+                document.getElementById("btnNextStep").style.display = "none";
+                document.getElementById("btnSubmitForm").style.display = "block";
+            }
+        }
+
+        function handleFormNext() {
+            // Validation step 1
+            const date = document.getElementById("inputEntryDate").value;
+            const quad = document.getElementById("inputFormQuadrant").value;
+            
+            if (!date) {
+                alert("일기 날짜를 선택해 주세요.");
+                return;
+            }
+            if (!quad) {
+                alert("당신의 마음날씨 분면을 선택해 주세요.");
+                return;
+            }
+            goToStep(2);
+        }
+
+        // Quadrant Form selection
+        function selectFormQuadrant(quad) {
+            document.getElementById("inputFormQuadrant").value = quad;
+            const btnMap = {
+                red: "formQuadRed",
+                yellow: "formQuadYellow",
+                blue: "formQuadBlue",
+                green: "formQuadGreen"
+            };
+
+            document.querySelectorAll("#addEntryModal .mood-grid .mood-btn").forEach(b => b.classList.remove("active"));
+            const activeBtn = document.getElementById(btnMap[quad]);
+            if (activeBtn) activeBtn.classList.add("active");
+
+            // Generate sub emotions word choices
+            const list = document.getElementById("subFeelingsList");
+            list.innerHTML = "";
+            document.getElementById("inputFormMoodWord").value = "";
+
+            const words = quadrantFeelings[quad] || [];
+            words.forEach(w => {
+                const d = document.createElement("div");
+                d.className = "mood-sub-choice";
+                d.innerText = w;
+                d.onclick = () => {
+                    document.querySelectorAll(".mood-sub-choice").forEach(c => c.classList.remove("selected"));
+                    d.classList.add("selected");
+                    document.getElementById("inputFormMoodWord").value = w;
+                };
+                list.appendChild(d);
+            });
+
+            document.getElementById("subFeelingsGroup").style.display = "block";
+        }
+
+        // Form Rating selections
+        function selectFormRating(val) {
+            document.getElementById("inputFormRating").value = val;
+            const stars = document.querySelectorAll("#formStarRating span");
+            stars.forEach(s => {
+                const sVal = Number(s.getAttribute("data-value"));
+                if (sVal <= val) {
+                    s.classList.add("filled");
+                } else {
+                    s.classList.remove("filled");
+                }
+            });
+        }
+
+        // Form Category selections
+        function selectFormCategory(cat, element) {
+            document.getElementById("inputFormCategory").value = cat;
+            const chips = document.querySelectorAll("#formCategoryChips .chip");
+            chips.forEach(c => c.classList.remove("active"));
+            element.classList.add("active");
+        }
+
+        // Preview & encode image uploader
+        function previewUploadImage(event) {
+            const file = event.target.files[0];
+            if (!file) return;
+
+            // Maximum image size safety (Limit to 1.5MB for localStorage storage capacity)
+            if (file.size > 1.5 * 1024 * 1024) {
+                alert("웹 백업 기능 보호를 위해 1.5MB 미만의 사진 파일만 지원합니다.");
+                event.target.value = "";
+                return;
+            }
+
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                const base64 = e.target.result;
+                document.getElementById("inputFormImageBase64").value = base64;
+                const previewImg = document.getElementById("formImagePreview");
+                previewImg.src = base64;
+                previewImg.style.display = "block";
+            };
+            reader.readAsDataURL(file);
+        }
+
+        // Form Submit
+        function submitGratitudeForm() {
+            const editId = document.getElementById("editEntryId").value;
+            const date = document.getElementById("inputEntryDate").value;
+            const quadrant = document.getElementById("inputFormQuadrant").value;
+            let moodWord = document.getElementById("inputFormMoodWord").value;
+            const content = document.getElementById("inputFormContent").value.trim();
+            const category = document.getElementById("inputFormCategory").value;
+            const rating = Number(document.getElementById("inputFormRating").value);
+            const image = document.getElementById("inputFormImageBase64").value;
+
+            if (!content) {
+                alert("기적 같은 감사의 내용을 적어주세요!");
+                return;
+            }
+
+            // Default sub feeling if empty
+            if (!moodWord) {
+                const defaultSubMap = {
+                    red: "걱정 속 발견",
+                    yellow: "눈부신 생기",
+                    blue: "조용하지만 든든",
+                    green: "평온하고 아늑"
+                };
+                moodWord = defaultSubMap[quadrant] || "기타";
+            }
+
+            if (editId) {
+                // Editing
+                const index = entries.findIndex(e => e.id === editId);
+                if (index !== -1) {
+                    entries[index] = {
+                        id: editId,
+                        date,
+                        quadrant,
+                        moodWord,
+                        content,
+                        category,
+                        rating,
+                        image
+                    };
+                }
+            } else {
+                // Adding new
+                const newEntry = {
+                    id: "entry-" + Date.now(),
+                    date,
+                    quadrant,
+                    moodWord,
+                    content,
+                    category,
+                    rating,
+                    image
+                };
+                entries.push(newEntry);
+            }
+
+            saveToLocalStorage();
+            closeAddEntryModal();
+            filterAndRender();
+
+            // Trigger inspiring popup quote
+            showInspiringQuote();
+        }
+
+        // Delete entry
+        function deleteEntry(id) {
+            if (confirm("정말로 이 감사 조각을 영구적으로 삭제하시겠습니까?\n한 번 심은 소중한 정원의 열매는 되돌릴 수 없습니다.")) {
+                entries = entries.filter(e => e.id !== id);
+                saveToLocalStorage();
+                filterAndRender();
+            }
+        }
+
+        // Show inspiring quote
+        function showInspiringQuote() {
+            const rand = healingQuotes[Math.floor(Math.random() * healingQuotes.length)];
+            document.getElementById("quoteBody").innerText = `"${rand.body}"`;
+            document.getElementById("quoteAuthor").innerText = `— ${rand.author}`;
+            document.getElementById("quoteModal").classList.add("active");
+        }
+
+        function closeQuoteModal() {
+            document.getElementById("quoteModal").classList.remove("active");
+        }
+
+        // Lightbox Zoom Full Size
+        function openLightbox(src) {
+            const modal = document.getElementById("lightboxModal");
+            const img = document.getElementById("lightboxImage");
+            img.src = src;
+            modal.classList.add("active");
+        }
+
+        function closeLightbox() {
+            document.getElementById("lightboxModal").classList.remove("active");
+        }
+
+        // DATA UTILITIES: EXPORT & IMPORT BACKUPS
+        function exportData() {
+            const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(entries, null, 2));
+            const downloadAnchor = document.createElement('a');
+            downloadAnchor.setAttribute("href", dataStr);
+            downloadAnchor.setAttribute("download", `나의_감사정원_기록_백업_${new Date().toISOString().split('T')[0]}.json`);
+            document.body.appendChild(downloadAnchor);
+            downloadAnchor.click();
+            downloadAnchor.remove();
+        }
+
+        function triggerImport() {
+            document.getElementById("importFileInput").click();
+        }
+
+        function importData(event) {
+            const file = event.target.files[0];
+            if (!file) return;
+
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                try {
+                    const parsed = JSON.parse(e.target.result);
+                    if (Array.isArray(parsed)) {
+                        if (confirm(`가져온 파일에서 총 ${parsed.length}개의 감사 조각을 정원에 심을까요? 기존에 작성한 기록들은 유지되고 덮어써집니다.`)) {
+                            // Merge and verify unique ids
+                            parsed.forEach(importedItem => {
+                                if (importedItem.id && importedItem.content && importedItem.date) {
+                                    // Remove existing duplication
+                                    entries = entries.filter(e => e.id !== importedItem.id);
+                                    entries.push(importedItem);
+                                }
+                            });
+                            saveToLocalStorage();
+                            filterAndRender();
+                            alert("소중한 추억들을 당신의 정원에 성공적으로 가져왔습니다! 🌿");
+                        }
+                    } else {
+                        alert("올바르지 않은 백업 파일 형식입니다. (JSON 배열이어야 합니다.)");
+                    }
+                } catch(error) {
+                    console.error(error);
+                    alert("가져오는 과정에서 파일 해석 중 오류가 발생했습니다.");
+                }
+            };
+            reader.readAsText(file);
+            event.target.value = ""; // clear
+        }
+
+        // Escape dangerous HTML
+        function escapeHTML(str) {
+            return str
+                .replace(/&/g, "&amp;")
+                .replace(/</g, "&lt;")
+                .replace(/>/g, "&gt;")
+                .replace(/"/g, "&quot;")
+                .replace(/'/g, "&#039;");
+        }
+    </script>
+</body>
+</html>
